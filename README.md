@@ -5,4 +5,4 @@ FiveM Post:
 
 Creator: https://github.com/mat0ta/tota_hud
 
-# ENOJY!
+# ENJOY!
