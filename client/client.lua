@@ -4,12 +4,13 @@ Citizen.CreateThread(function()
     SetRadarBigmapEnabled(false, false)
     while true do
         Citizen.Wait(1000)
+	local _ped = PlayerPedId()
         TriggerEvent('esx_status:getStatus', 'hunger', function(status) comida = status.val / 10000 end)
         TriggerEvent('esx_status:getStatus', 'thirst', function(status) bebida = status.val / 10000 end)
         stamina = 100 - GetPlayerSprintStaminaRemaining(PlayerId())
         SendNUIMessage({
-            health = GetEntityHealth(GetPlayerPed(-1)) - 100,
-            armor = GetPedArmour(GetPlayerPed(-1)),
+            health = GetEntityHealth(_ped) - 100,
+            armor = GetPedArmour(_ped),
             stamina = 100 - GetPlayerSprintStaminaRemaining(PlayerId()),
             bebida = bebida;
             comida = comida;
@@ -23,9 +24,9 @@ Citizen.CreateThread(function()
 
 		local radarEnabled = IsRadarEnabled()
 
-		if not IsPedInAnyVehicle(PlayerPedId()) and radarEnabled then
+		if not IsPedInAnyVehicle(_ped) and radarEnabled then
 			DisplayRadar(false)
-		elseif IsPedInAnyVehicle(PlayerPedId()) and not radarEnabled then
+		elseif IsPedInAnyVehicle(_ped) and not radarEnabled then
 			DisplayRadar(true)
 		end
 		Citizen.Wait(sleepThread)
